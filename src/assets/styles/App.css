@@ -1,0 +1,88 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #e9ecef;
+}
+
+.app {
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.region-details {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.error-content {
+  text-align: center;
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+}
+
+.error-content h1 {
+  font-size: 2.5rem;
+  color: #dc3545;
+  margin-bottom: 20px;
+}
+
+.error-content p {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-bottom: 30px;
+}
+
+.error-content button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.error-content button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .error-content {
+    padding: 20px;
+  }
+
+  .error-content h1 {
+    font-size: 2rem;
+  }
+
+  .error-content p {
+    font-size: 1rem;
+  }
+
+  .error-content button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+}
