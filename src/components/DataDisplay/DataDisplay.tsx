@@ -1,26 +1,35 @@
 import React from "react";
-import { CarbonIntensityData } from "../../types/carbonIntensity.d";
 import "./DataDisplay.css";
+import { useCarbonIntensityContext } from "../../context/CarbonIntensityContext";
 
-interface DataDisplayProps {
-  data: CarbonIntensityData[];
-}
+const DataDisplay: React.FC = () => {
+  const { selectedRegion } = useCarbonIntensityContext();
 
-const DataDisplay: React.FC<DataDisplayProps> = ({ data }) => {
+  if (!selectedRegion) return null;
+
   return (
     <div className="data-overlay">
       <h3>Carbon Intensity Data (Last 30 Minutes)</h3>
       <ul>
-        {data.map((entry, index) => (
-          <li key={index}>
-            <strong>From:</strong> {new Date(entry.from).toLocaleTimeString()} -{" "}
-            <strong>To:</strong> {new Date(entry.to).toLocaleTimeString()}
-            <br />
-            <strong>Forecast:</strong> {entry.intensity.forecast} |{" "}
-            <strong>Actual:</strong> {entry.intensity.actual} |{" "}
-            <strong>Index:</strong> {entry.intensity.index}
-          </li>
-        ))}
+        <li>
+          <strong>Region:</strong> {selectedRegion.shortname}
+        </li>
+        <li>
+          <strong>Forecast:</strong> {selectedRegion.intensity.forecast} gCO₂/kWh
+        </li>
+        <li>
+          <strong>Index:</strong> {selectedRegion.intensity.index}
+        </li>
+        <li>
+          <strong>Generation Mix:</strong>
+          <ul>
+            {selectedRegion.generationmix.map((mix, index) => (
+              <li key={index}>
+                {mix.fuel}: {mix.perc}%
+              </li>
+            ))}
+          </ul>
+        </li>
       </ul>
     </div>
   );

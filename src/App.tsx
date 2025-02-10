@@ -1,12 +1,9 @@
 import React from "react";
-import useCarbonIntensity from "./hooks/useCarbonIntensity";
-import MapComponent from "./components/MapComponent/MapComponent";
-import DataDisplay from "./components/DataDisplay/DataDisplay";
 import "./assets/styles/App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Map from "./components/MapComponent/Map";
-import Loader from "./components/Loader/Loader";
 import AppRoutes from "./router/Router";
+import { CarbonIntensityProvider } from "./context/CarbonIntensityContext";
+import { Toaster } from "react-hot-toast";
 
 const App: React.FC = () => {
   const queryClient = new QueryClient();
@@ -14,7 +11,10 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <QueryClientProvider client={queryClient}>
-        <AppRoutes />
+        <CarbonIntensityProvider>
+          <AppRoutes />
+          <Toaster position="bottom-right" />
+        </CarbonIntensityProvider>
       </QueryClientProvider>
     </div>
   );
