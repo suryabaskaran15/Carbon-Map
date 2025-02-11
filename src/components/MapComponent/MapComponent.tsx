@@ -1,25 +1,39 @@
-import React, { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap, Circle } from "react-leaflet";
+import React from "react";
 import L from "leaflet";
+import ReactDOMServer from "react-dom/server";
+import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.heat";
 import "./MapComponent.css";
 import { useCarbonIntensityContext } from "../../context/CarbonIntensityContext";
 import { HeatmapData } from "../../types/carbonIntensity";
 import HeatmapLayer from "./HeatmapLayer";
+import { FaLocationDot } from "react-icons/fa6";
+import { getIntensityClass } from "../utils/functions";
 
 interface MapComponentProps {
   heatmapData: HeatmapData[];
 }
 
+// Convert FaLocationDot into an HTML string
+const locationIconHTML = (colorClass: string) => ReactDOMServer.renderToString(
+  <FaLocationDot className={`custom-map-icon ${getIntensityClass(colorClass)}`} />
+);
 
+// Create a Leaflet divIcon using the converted HTML
+const locationIcon = (colorClass: string) => L.divIcon({
+  className: "custom-marker-icon",
+  html: locationIconHTML(colorClass), // Inject FaLocationDot HTML
+  iconSize: [24, 24], // Adjust size
+  iconAnchor: [12, 24], // Center the icon properly
+});
 
 const MapComponent: React.FC<MapComponentProps> = ({ heatmapData }) => {
   const defaultPosition: [number, number] = [51.505, -0.09]; // Default to London
   const { selectedRegion, setSelectedRegion } = useCarbonIntensityContext();
 
   return (
-    <MapContainer center={defaultPosition} zoom={5} minZoom={3} scrollWheelZoom={true}>
+    <MapContainer className="map-container" center={defaultPosition} zoom={5} minZoom={3} scrollWheelZoom={true}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -29,6 +43,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ heatmapData }) => {
         <Marker
           key={region.regionid}
           position={[region.lat, region.lng]}
+          icon={locationIcon(region.intensity.index)} // Use the custom FaLocationDot icon
           eventHandlers={{
             click: () => {
               setSelectedRegion((prev) => (prev?.regionid !== region.regionid ? region : null));

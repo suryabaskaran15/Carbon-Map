@@ -8,3 +8,22 @@
 .leaflet-popup-content {
   font-size: 14px;
 }
+
+.custom-map-icon {
+  font-size: 24px;
+}
+
+.map-container .intensity-very-low { color: #155724; }
+.map-container .intensity-low { color: #004085; }
+.map-container .intensity-moderate { color: #856404; }
+.map-container .intensity-high,
+.map-container .intensity-very-high { color: #721c24; }
+
+/* Remove background color for all intensity classes */
+.map-container .intensity-very-low,
+.map-container .intensity-low,
+.map-container .intensity-moderate,
+.map-container .intensity-high,
+.map-container .intensity-very-high {
+  background-color: transparent !important;
+}
