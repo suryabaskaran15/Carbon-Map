@@ -51,7 +51,7 @@ npm install
 
 # Run the development server:
 ```
-npm start
+npm run dev
 ```
 # Open the app:
 
